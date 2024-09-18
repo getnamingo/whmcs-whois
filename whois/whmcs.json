@@ -1,0 +1,18 @@
+{
+  "schema": "1.0",
+  "type": "whmcs-addons",
+  "name": "whois",
+  "version": "1.0",
+  "license": "MIT",
+  "category": "utilities",
+  "description": {
+    "name": "WHOIS & RDAP Client",
+    "tagline": "Provides WHOIS and RDAP query capabilities to retrieve domain registration details and status information"
+  },
+  "authors": [
+    {
+      "name": "Namingo",
+      "homepage": "https:\/\/namingo.org\/"
+    }
+  ]
+}
