@@ -7,6 +7,9 @@
             white-space: pre-wrap;
             word-wrap: break-word;
         }
+        #whoisButton {
+            margin-right: 0.5rem;
+        }
     </style>
 {/block}
 
