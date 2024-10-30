@@ -35,6 +35,7 @@
                     <div class="row" id="bottom">
                         <div class="col-lg-12">
                             <pre><code><div id="result"></div></code></pre>
+                            <p id="contact"></p>
                         </div>
                     </div>
                 </div>
@@ -42,9 +43,19 @@
         </div>
     </div>
 
-    {literal}
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Define dynamic links and URLs
+            const moduleLink = "{$modulelink}";
+            const contactLinkBase = "{$contactLink}";
+
+            // Function to update the contact link
+            function updateContactLink(domain) {
+                var contactElement = document.getElementById("contact");
+                var contactLink = contactLinkBase + encodeURIComponent(domain);
+                contactElement.innerHTML = '<a href="' + contactLink + '">Contact the domain registrant</a>';
+            }
+        
             document.getElementById('domainInput').addEventListener('keypress', function(event) {
                 if (event.key === 'Enter') {
                     event.preventDefault();
@@ -53,6 +64,8 @@
             });
 
             document.getElementById('whoisButton').addEventListener('click', function() {
+                document.getElementById("contact").innerHTML = ''; // Clear the contact link
+
                 var domain = document.getElementById('domainInput').value.trim();
                 if (!domain) {
                     alert('Please enter a domain name.');
@@ -60,7 +73,7 @@
                 }
                 var captcha = '';
 
-                fetch('/modules/addons/whois/check.php', {
+                fetch(moduleLink + "&action=check", {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
@@ -70,12 +83,18 @@
                 .then(response => response.text())
                 .then(data => {
                     document.getElementById('result').innerText = data;
+                    const rowCount = data.split('\n').length;
+                    if (rowCount >= 5) {
+                        updateContactLink(domain);
+                    }
                     document.getElementById('bottom').style.display = 'block';
                 })
                 .catch(error => console.error('Error:', error));
             });
 
             document.getElementById('rdapButton').addEventListener('click', function() {
+                document.getElementById("contact").innerHTML = ''; // Clear the contact link
+
                 var domain = document.getElementById('domainInput').value.trim();
                 if (!domain) {
                     alert('Please enter a domain name.');
@@ -83,7 +102,7 @@
                 }
                 var captcha = '';
 
-                fetch('/modules/addons/whois/check.php', {
+                fetch(moduleLink + "&action=check", {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
@@ -98,6 +117,9 @@
                     } else {
                         let output = parseRdapResponse(data);
                         document.getElementById('result').innerText = output;
+                        if (!output.includes("Domain Name: N/A")) {
+                            updateContactLink(domain);
+                        }
                         document.getElementById('bottom').style.display = 'block';
                     }
                 })
@@ -188,6 +210,5 @@
             return vcardOutput;
         }
     </script>
-    {/literal}
 </div>
 {/block}

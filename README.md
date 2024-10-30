@@ -12,7 +12,7 @@ chmod -R 755 /var/www/html/whmcs/modules/addons/whois
 
 - Go to Settings > Apps & Integrations in the admin panel, search for "WHOIS & RDAP Client" and then activate "WHOIS & RDAP Client".
 
-Edit the `/var/www/html/whmcs/modules/addons/whois/check.php` file and set your WHOIS and RDAP server URLs by replacing the placeholder values with your actual server addresses.
+- Set your WHOIS and RDAP server and contact form URLs in the module settings.
 
 ## Usage Instructions
 
