@@ -31,7 +31,7 @@ function whois_config()
                 'FriendlyName' => 'Contact Form Link',
                 'Type' => 'text',
                 'Size' => '50',
-                'Default' => '/index.php?m=contact&domain=', 
+                'Default' => '/index.php?m=contact&domain=',
                 'Description' => 'Enter the URL for the contact form link',
             ],
         ],
